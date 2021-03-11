@@ -78,6 +78,7 @@ Per effettuare un test di raggiungibilità del sito effettuare prima un ping al 
 terraform state show "aws_alb.wp-elb" | grep dns_name | awk '{print $3}' | sed s/\"//g | xargs ping
 ```
 
+
 ```
 <IP_BILANCIATORE> www.provapratica.com
 ```
