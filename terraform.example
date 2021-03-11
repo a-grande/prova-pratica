@@ -1,0 +1,21 @@
+# Generali
+owner = "<OWNER_ID>"
+domain = "provapratica.com"
+private_domain = "internal.provapratica.com"
+
+# DB
+db_host = "wordpress.db.internal.provapratica.com"
+db_user = "root_wp"
+db_pass = "r00T_oRdpre55"
+
+# Wordpress
+wp_url = "www.provapratica.com"
+wp_title = "Prova pratica Wordpress"
+wp_user = "admin"
+wp_pass = "WP_p4ssw0rd"
+wp_dbname = "wordpress"
+
+#ec2
+ami_images_id = "ami-06fd78dc2f0b69910" # Ubuntu 18.04
+ec2_instance_type = "t2.micro"
+
