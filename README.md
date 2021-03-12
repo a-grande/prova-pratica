@@ -2,7 +2,9 @@
 
 ## Descrizione
 Deploy automatico di una infrastruttura in HA che scala orizzontalmente con installazione automatica di wordpress su istanze EC2.
-Il sito wordpress base viene committato su codecommit nel repository definito in terraform.tfvars 
+
+Il sito wordpress base viene committato su codecommit nel repository definito in terraform.tfvars.
+
 Di default il sito punterà all'url www.provapratica.com definito in terraform.tfvars.
 
 ## File
