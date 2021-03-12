@@ -80,5 +80,11 @@ variable "wp_dbname" {
   type    = string
 }
 
+variable "wp_email" {
+  type    = string
+}
 
-
+# CodeCommit
+variable "repository" {
+  type    = string
+}

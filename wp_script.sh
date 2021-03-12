@@ -1,16 +1,7 @@
 #!/bin/bash
-DOMAIN=$1
-DB_NAME=$2
-DB_HOST=$3
-DB_USER=$4
-DB_PASSWORD=$5
-WP_USER=$6
-WP_PASSWORD=$7
-WP_TITLE=$8
-WP_EMAIL=$9
-echo ${DOMAIN} ${WP_TITLE} ${WP_USER} ${WP_PASSWORD} ${WP_EMAIL}
-PACKAGES_LIST='apache2 software-properties-common libapache2-mod-php7.3 php7.3 php7.3-cli php7.3-common php7.3-json php7.3-opcache php7.3-mysql php7.3-mbstring php7.3-zip php7.3-xml mysql-client-core-5.7'
+PACKAGES_LIST='wget ruby apache2 software-properties-common libapache2-mod-php7.3 php7.3 php7.3-cli php7.3-common php7.3-json php7.3-opcache php7.3-mysql php7.3-mbstring php7.3-zip php7.3-xml mysql-client-core-5.7'
 
+sudo apt update
 sudo add-apt-repository -y ppa:ondrej/apache2
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt update 1> /dev/null
@@ -56,13 +47,30 @@ sudo chown ubuntu /var/www/${DOMAIN}/
 cd /var/www/${DOMAIN}/
 wp core download
 wp core config --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --dbhost=${DB_HOST}
-wp core install --url=${DOMAIN} --title=${WP_TITLE} --admin_user=${WP_USER} --admin_password=${WP_PASSWORD} --admin_email="admin@provapratica.com"
+wp core install --url=${DOMAIN} --title=${WP_TITLE} --admin_user=${WP_USER} --admin_password=${WP_PASSWORD} --admin_email=${WP_EMAIL}
 sudo chmod -R 755 wp-content
+
+
+# installazione aws
+sudo apt install python-pip -y
+sudo pip install awscli
+
+# configurazione git
+git config --global credential.helper '!aws codecommit credential-helper $@'
+git config --global credential.UseHttpPath true
+
+# git commit
+git init
+git remote add origin ${REPO_NAME}
+git add .
+git commit -m "Upload wordpress"
+git push origin master
+rm -rf .git
+
+# aggiornamento permessi
 sudo chown -R www-data:www-data /var/www/${DOMAIN}/
 
 # agent code deploy
-sudo apt install ruby -y
-sudo apt install wget -y
 cd /tmp
 wget https://aws-codedeploy-eu-west-1.s3.eu-west-1.amazonaws.com/latest/install
 chmod +x ./install

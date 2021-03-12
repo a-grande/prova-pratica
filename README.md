@@ -2,7 +2,7 @@
 
 ## Descrizione
 Deploy automatico di una infrastruttura in HA che scala orizzontalmente con installazione automatica di wordpress su istanze EC2.
-
+Il sito wordpress base viene committato su codecommit nel repository definito in terraform.tfvars 
 Di default il sito punterà all'url www.provapratica.com definito in terraform.tfvars.
 
 ## File
@@ -10,11 +10,15 @@ Di default il sito punterà all'url www.provapratica.com definito in terraform.t
 ├── README.md
 ├── alb.tf
 ├── asg.tf
+├── assume-role-policy.json
 ├── bastion.pem
 ├── bastion.pub
+├── ci-cd.tf
 ├── ec2-bastion.tf
 ├── ec2-wordpress.tf
 ├── efs.tf
+├── iam.tf
+├── output.tf
 ├── provider.example
 ├── rds.tf
 ├── route53.tf
@@ -33,6 +37,8 @@ Di default il sito punterà all'url www.provapratica.com definito in terraform.t
 * EC2
 * Cloudwatch
 * Route53
+* IAM
+* CodeCommit
 
 ## Setup
 1. Valorizzazione parametri
@@ -73,9 +79,9 @@ $ terraform terraform destroy -target="aws_instance.web"
 ```
 
 ## Test raggiungibilità
-Per effettuare un test di raggiungibilità del sito effettuare prima un ping al bilanciatore e modificare il proprio /etc/hosts
+Per effettuare un test di raggiungibilità del sito effettuare prima un ping al dns del bilanciatore fornito dall'output
 ```
-terraform state show "aws_alb.wp-elb" | grep dns_name | awk '{print $3}' | sed s/\"//g | xargs ping
+ping <DNS_BILANCIATORE>
 ```
 
 

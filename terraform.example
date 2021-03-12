@@ -14,8 +14,11 @@ wp_title = "Prova pratica Wordpress"
 wp_user = "admin"
 wp_pass = "WP_p4ssw0rd"
 wp_dbname = "wordpress"
+wp_email = "admin@provapratica.com"
 
 #ec2
 ami_images_id = "ami-06fd78dc2f0b69910" # Ubuntu 18.04
 ec2_instance_type = "t2.micro"
 
+#code commit
+repository = "prova-pratica"
