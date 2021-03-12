@@ -29,9 +29,11 @@ resource "aws_autoscaling_group" "asg" {
 
     }
   }
-  tags = [{
-    "Name" = "value"
-  }]
+  tag {
+    key                 = "Role"
+    value               = "frontend"
+    propagate_at_launch = true
+  }
 }
 
 # Associazione bilanciatore al gruppo autoscaling
